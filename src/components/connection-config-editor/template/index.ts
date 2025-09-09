@@ -16,7 +16,7 @@ export const ConnectionTemplateDictionary: Record<
   "cloudflare-wae": CloudflareWAEConnectionTemplate,
   "cloudflare-d1": CloudflareConnectionTemplate,
   rqlite: RqliteConnectionTemplate,
-  "sqlite-filehandler": SqliteConnectionTemplate,
+  sqlite: SqliteConnectionTemplate,
   turso: TursoConnectionTemplate,
   valtown: ValtownConnectionTemplate,
 

@@ -5,7 +5,7 @@ export type SupportedDriver =
   | "starbase"
   | "cloudflare-d1"
   | "cloudflare-wae"
-  | "sqlite-filehandler";
+  | "sqlite";
 
 export type SavedConnectionStorage = "remote" | "local";
 export type SavedConnectionLabel = "gray" | "red" | "yellow" | "green" | "blue";
@@ -33,7 +33,6 @@ export interface SavedConnectionItemConfigConfig {
   username?: string;
   password?: string;
   database?: string;
-  filehandler?: string;
 }
 
 export interface SavedConnectionItemConfig {
@@ -54,7 +53,6 @@ export interface SavedConnectionRawLocalStorage {
   database?: string;
   driver?: SupportedDriver;
   label?: SavedConnectionLabel;
-  file_handler?: string;
   description?: string;
   last_used?: number;
   starbase_type?: string;

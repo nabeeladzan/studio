@@ -130,9 +130,9 @@ function mapColumn(column: MySqlColumn): DatabaseTableColumn {
 export default class MySQLLikeDriver extends CommonSQLImplement {
   columnTypeSelector: ColumnTypeSelector = MYSQL_DATA_TYPE_SUGGESTION;
 
-  // If this is specified, we only show the tables in this database
-  // Outerbase Cloud does not support the USE statement because it runs in non-interactive mode
-  // It does not make sense to show other databases.
+  // If this is specified, we only show the tables in this database.
+  // Some environments do not support switching databases interactively,
+  // so it does not make sense to show other databases.
   selectedDatabase: string = "";
 
   constructor(

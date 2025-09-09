@@ -1,6 +1,5 @@
 import { DatabaseSchemas } from "@/drivers/base-driver";
 import { BoardSource } from "@/drivers/board-source/base-source";
-import { OuterbaseAPIError } from "@/outerbase-cloud/api-type";
 import { CaretDown, WarningCircle } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Loader } from "../orbit/loader";
@@ -35,7 +34,7 @@ export default function BoardSourcePicker({
 }: BoardSourcePickerProps) {
   const [open, setOpen] = useState(false);
   const [loadingSchema, setLoadingSchema] = useState(false);
-  const [schemaError, setSchemaError] = useState<OuterbaseAPIError>();
+  const [schemaError, setSchemaError] = useState<Error>();
   const { sources: sourceDriver } = useBoardContext();
   const sourceList = sourceDriver?.sourceList() ?? [];
   const [search, setSearch] = useState("");
@@ -73,11 +72,7 @@ export default function BoardSourcePicker({
         }
       })
       .catch((e) => {
-        if (e instanceof OuterbaseAPIError) {
-          setSchemaError(e);
-        } else {
-          setSchemaError(new OuterbaseAPIError(e.message));
-        }
+        setSchemaError(e instanceof Error ? e : new Error(String(e)));
       })
       .finally(() => {
         setLoadingSchema(false);

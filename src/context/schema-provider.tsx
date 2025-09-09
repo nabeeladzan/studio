@@ -121,9 +121,8 @@ export function SchemaProvider({ children }: Readonly<PropsWithChildren>) {
 
   /**
    * Triggered when re-fetching the database schema.
-   * This is particularly useful for Outerbase Cloud,
-   * which needs to update its data catalog to provide
-   * the schema to the AI.
+   * Allows extensions to update their data catalog
+   * after the latest schema is loaded.
    */
   useEffect(() => {
     if (schema && Object.entries(schema).length > 0) {

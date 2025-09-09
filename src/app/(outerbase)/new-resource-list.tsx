@@ -1,8 +1,4 @@
-import {
-  MySQLIcon,
-  PostgreIcon,
-  SQLiteIcon,
-} from "@/components/icons/outerbase-icon";
+import { MySQLIcon, PostgreIcon } from "@/components/icons/outerbase-icon";
 import {
   CloudflareIcon,
   RQLiteIcon,
@@ -62,11 +58,6 @@ export function getCreateResourceTypeList(
       href: workspaceId
         ? `/w/${workspaceId}/new-base/mysql`
         : "/local/new-base/mysql",
-    },
-    {
-      name: "SQLite",
-      icon: SQLiteIcon,
-      href: workspaceId ? "" : "/local/new-base/sqlite-filehandler",
     },
     {
       name: "val.town",
