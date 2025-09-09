@@ -12,8 +12,6 @@
 import { ConnectionTemplateList } from "@/app/(outerbase)/base-template";
 import { cn } from "@/lib/utils";
 import { produce } from "immer";
-import { CommonDialogProvider } from "../common-dialog";
-import FileHandlerPicker from "../filehandler-picker";
 import { Input } from "../orbit/input";
 import { Label } from "../orbit/label";
 import { MenuBar } from "../orbit/menu-bar";
@@ -138,29 +136,6 @@ export function ConnectionConfigEditor({
                       {column.label}
                     </label>
                   );
-                } else if (column.type === "file") {
-                  content = (
-                    <Label
-                      title={column.label}
-                      required={column.required}
-                      requiredDescription={errors?.[column.name]}
-                    >
-                      <div>
-                        <CommonDialogProvider>
-                          <FileHandlerPicker
-                            value={value[column.name] as string}
-                            onChange={(fileId) => {
-                              onChange(
-                                produce(value, (draft) => {
-                                  draft[column.name] = fileId as never;
-                                })
-                              );
-                            }}
-                          />
-                        </CommonDialogProvider>
-                      </div>
-                    </Label>
-                  );
                 } else if (
                   column.type === "options" &&
                   column.options &&
@@ -211,10 +186,6 @@ export interface CommonConnectionConfig {
 
   ssl?: boolean;
 
-  // Primarily used for loading the SQLite database file
-  // from the browser using the File System Access API
-  filehandler?: string;
-
   // Starbase specified configuration
   starbase_type?: string;
 }
@@ -222,7 +193,7 @@ export interface CommonConnectionConfig {
 interface CommonConnectionConfigColumn {
   name: keyof CommonConnectionConfig;
   label: string;
-  type: "text" | "password" | "file" | "textarea" | "checkbox" | "options";
+  type: "text" | "password" | "textarea" | "checkbox" | "options";
   options?: { value: string; content: string }[];
   required?: boolean;
   placeholder?: string;

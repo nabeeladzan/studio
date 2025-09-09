@@ -1,4 +1,5 @@
 import { SavedConnectionRawLocalStorage } from "@/app/(theme)/connect/saved-connection-storage";
+import { env } from "@/env";
 import { CloudflareD1Queryable } from "./database/cloudflare-d1";
 import CloudflareWAEDriver from "./database/cloudflare-wae";
 import { RqliteQueryable } from "./database/rqlite";
@@ -26,6 +27,12 @@ export function createLocalDriver(conn: SavedConnectionRawLocalStorage) {
     return new SqliteLikeBaseDriver(new StarbaseQuery(conn.url!, conn.token!));
   } else if (conn.driver === "cloudflare-wae") {
     return new CloudflareWAEDriver(conn.username!, conn.token!);
+  } else if (conn.driver === "sqlite") {
+    return new TursoDriver(
+      env.DATABASE_URL ?? "file:./data.db",
+      env.DATABASE_AUTH_TOKEN ?? "",
+      true
+    );
   }
 
   return new TursoDriver(conn.url!, conn.token!, true);

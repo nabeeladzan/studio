@@ -13,11 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { timeSince } from "@/lib/utils-datetime";
 import {
-  OuterbaseAPIBase,
-  OuterbaseAPIDashboard,
-  OuterbaseAPIWorkspace,
-} from "@/outerbase-cloud/api-type";
-import {
   CalendarDots,
   MagnifyingGlass,
   Pencil,
@@ -38,35 +33,6 @@ export interface ResourceItemProps {
   status?: string;
   lastUsed: number;
   color?: string;
-}
-
-export function getResourceItemPropsFromBase(
-  workspace: OuterbaseAPIWorkspace,
-  base: OuterbaseAPIBase
-): ResourceItemProps {
-  return {
-    id: base.id,
-    type: base.sources[0]?.type ?? "database",
-    name: base.name,
-    color: getDatabaseColor(base.sources[0]?.type ?? "database"),
-    href: `/w/${workspace.short_name}/${base.short_name}`,
-    lastUsed: base.last_analytics_event?.created_at
-      ? new Date(base.last_analytics_event?.created_at).getTime()
-      : 0,
-  };
-}
-
-export function getResourceItemPropsFromBoard(
-  workspace: OuterbaseAPIWorkspace,
-  board: OuterbaseAPIDashboard
-): ResourceItemProps {
-  return {
-    id: board.id,
-    type: "board",
-    name: board.name,
-    href: `/w/${workspace?.short_name}/board/${board.id}`,
-    lastUsed: new Date(board.updated_at).getTime(),
-  };
 }
 
 type SortedType = "name_asc" | "name_desc" | "recent";

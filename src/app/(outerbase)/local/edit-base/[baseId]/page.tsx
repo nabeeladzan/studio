@@ -45,9 +45,7 @@ export default function LocalEditBasePage() {
 
     const tmp = await updateLocalConnection(baseId, template.localTo(value));
     router.push(
-      tmp?.content.driver === "sqlite-filehandler"
-        ? `/playground/client?s=${tmp?.content.id}`
-        : `/client/s/${tmp?.content.driver ?? "turso"}?p=${baseId}`
+      `/client/s/${tmp?.content.driver ?? "turso"}?p=${baseId}`
     );
   }, [template, value, router, baseId]);
 

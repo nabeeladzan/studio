@@ -19,15 +19,15 @@ export const runtime = "edge";
 export default function LocalNewBasePage() {
   const { driver } = useParams<{ driver: string }>();
   const router = useRouter();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const [value, setValue] = useState<CommonConnectionConfig>({
     name: "",
     host: searchParams.get("url") ?? "",
-    ...(driver === "starbase" ? {
-      starbase_type: searchParams.get("type") ?? "internal"
-    } : {}),
-    token: searchParams.get("access-key") ?? ""
-   });
+    ...(driver === "starbase"
+      ? { starbase_type: searchParams.get("type") ?? "internal" }
+      : {}),
+    token: searchParams.get("access-key") ?? "",
+  });
   const [loading, setLoading] = useState(false);
   const [validateErrors, setValidateErrors] = useState<Record<string, string>>(
     {}
@@ -62,9 +62,7 @@ export default function LocalNewBasePage() {
     // Redirect to the connection page
     mutate("/local/bases");
     router.replace(
-      newConnection.content.driver === "sqlite-filehandler"
-        ? `/playground/client?s=${newConnection.id}`
-        : `/client/s/${newConnection.content.driver ?? "turso"}?p=${newConnection.id}`
+      `/client/s/${newConnection.content.driver ?? "turso"}?p=${newConnection.id}`
     );
   }, [template, value, router]);
 
